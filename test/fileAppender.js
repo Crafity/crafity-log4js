@@ -1,6 +1,5 @@
 var vows = require('vows')
 , fs = require('fs')
-, path = require('path')
 , log4js = require('../lib/log4js')
 , assert = require('assert');
 
@@ -18,19 +17,14 @@ vows.describe('log4js fileAppender').addBatch({
 
     'with default fileAppender settings': {
         topic: function() {
-            var that = this
-          , testFile = path.join(__dirname, '/fa-default-test.log')
+            var testFile = __dirname + '/fa-default-test.log'
           , logger = log4js.getLogger('default-settings');
             remove(testFile);
-            //log4js.configure({ appenders:[ { type: "file", filename: testFile, category: 'default-settings' } ] });
-            log4js.clearAppenders();
-            log4js.addAppender(require('../lib/appenders/file').appender(testFile), 'default-settings');
+            log4js.addAppender(log4js.fileAppender(testFile), 'default-settings');
 
             logger.info("This should be in the file.");
 
-            setTimeout(function() {
-                fs.readFile(testFile, "utf8", that.callback);
-            }, 100);
+            fs.readFile(testFile, "utf8", this.callback);
         },
         'should write log messages to the file': function(err, fileContents) {
             assert.include(fileContents, "This should be in the file.\n");
@@ -41,14 +35,13 @@ vows.describe('log4js fileAppender').addBatch({
     },
     'with a max file size and no backups': {
         topic: function() {
-            var testFile = path.join(__dirname, '/fa-maxFileSize-test.log')
+            var testFile = __dirname + '/fa-maxFileSize-test.log'
           , logger = log4js.getLogger('max-file-size')
           , that = this;
             remove(testFile);
             remove(testFile + '.1');
             //log file of 100 bytes maximum, no backups
-            log4js.clearAppenders();
-            log4js.addAppender(require('../lib/appenders/file').appender(testFile, log4js.layouts.basicLayout, 100, 0), 'max-file-size');
+            log4js.addAppender(log4js.fileAppender(testFile, log4js.layouts.basicLayout, 100, 0), 'max-file-size');
             logger.info("This is the first log message.");
             logger.info("This is an intermediate log message.");
             logger.info("This is the second log message.");
@@ -74,15 +67,14 @@ vows.describe('log4js fileAppender').addBatch({
     },
     'with a max file size and 2 backups': {
         topic: function() {
-            var testFile = path.join(__dirname, '/fa-maxFileSize-with-backups-test.log')
+            var testFile = __dirname + '/fa-maxFileSize-with-backups-test.log'
           , logger = log4js.getLogger('max-file-size-backups');
             remove(testFile);
             remove(testFile+'.1');
             remove(testFile+'.2');
 
             //log file of 50 bytes maximum, 2 backups
-            log4js.clearAppenders();
-            log4js.addAppender(require('../lib/appenders/file').appender(testFile, log4js.layouts.basicLayout, 50, 2), 'max-file-size-backups');
+            log4js.addAppender(log4js.fileAppender(testFile, log4js.layouts.basicLayout, 50, 2), 'max-file-size-backups');
             logger.info("This is the first log message.");
             logger.info("This is the second log message.");
             logger.info("This is the third log message.");
@@ -91,7 +83,7 @@ vows.describe('log4js fileAppender').addBatch({
             //give the system a chance to open the stream
             setTimeout(function() {
                 fs.readdir(__dirname, that.callback);
-            }, 200);
+            }, 100);
         },
         'the log files': {
             topic: function(files) {
@@ -102,30 +94,30 @@ vows.describe('log4js fileAppender').addBatch({
                 assert.equal(files.length, 3);
             },
             'should be named in sequence': function (files) {
-                assert.deepEqual(files.sort(), ['fa-maxFileSize-with-backups-test.log', 'fa-maxFileSize-with-backups-test.log.1', 'fa-maxFileSize-with-backups-test.log.2']);
+                assert.deepEqual(files, ['fa-maxFileSize-with-backups-test.log', 'fa-maxFileSize-with-backups-test.log.1', 'fa-maxFileSize-with-backups-test.log.2']);
             },
             'and the contents of the first file': {
                 topic: function(logFiles) {
-                    fs.readFile(path.join(__dirname, logFiles[0]), "utf8", this.callback);
+                    fs.readFile(logFiles[0], "utf8", this.callback);
                 },
-                'should be empty because the last log message triggers rolling': function(contents) {
-                    assert.isEmpty(contents);
+                'should be the last log message': function(err, contents) {
+                    assert.include(contents, 'This is the fourth log message.');
                 }
             },
             'and the contents of the second file': {
                 topic: function(logFiles) {
-                    fs.readFile(path.join(__dirname, logFiles[1]), "utf8", this.callback);
+                    fs.readFile(logFiles[1], "utf8", this.callback);
                 },
-                'should be the last log message': function(contents) {
-                    assert.include(contents, 'This is the fourth log message.');
+                'should be the third log message': function(err, contents) {
+                    assert.include(contents, 'This is the third log message.');
                 }
             },
             'and the contents of the third file': {
                 topic: function(logFiles) {
-                    fs.readFile(path.join(__dirname, logFiles[2]), "utf8", this.callback);
+                    fs.readFile(logFiles[2], "utf8", this.callback);
                 },
-                'should be the third log message': function(contents) {
-                    assert.include(contents, 'This is the third log message.');
+                'should be the second log message': function(err, contents) {
+                    assert.include(contents, 'This is the second log message.');
                 }
             }
         }
