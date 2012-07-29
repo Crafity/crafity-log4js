@@ -31,9 +31,8 @@
 	],
 	"main": "./lib/log4js",
 	"directories": {
-		"test": "test",
-		"test",
-		"test"
+		"lib": "lib",
+		"test": "test"
 	},
 	"licenses": [
 		{
