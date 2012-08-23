@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/Crafity/crafity-log4js.png)](http://travis-ci.org/Crafity/crafity-log4js)
 # log4js-node
 
 NOTE: v0.3.8 of log4js is the last that will work with node versions older than 0.4. To use v0.3.9 you will need node 0.4 or later.
