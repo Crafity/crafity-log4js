@@ -65,8 +65,7 @@
     "node": "*"
   },
   "scripts": {
-    "prepublish": "npm prune",
-    "test": "vows test/*.js"
+    "prepublish": "npm prune"
   },
   "_npmUser": {
     "name": "Crafity",
