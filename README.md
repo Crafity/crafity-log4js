@@ -1,4 +1,4 @@
-# log4js-node
+# log4js-node [![Dependency status](https://david-dm.org/crafity/crafity-log4js.png)](https://david-dm.org/crafity/crafity-log4js) [![Travis Build Status](https://travis-ci.org/Crafity/crafity-log4js.png?branch=master)](https://travis-ci.org/Crafity/crafity-log4js) [![NPM Module version](https://badge.fury.io/js/crafity-log4js.png)](http://badge.fury.io/js/crafity-log4js)
 
 NOTE: v0.3.8 of log4js is the last that will work with node versions older than 0.4. To use v0.3.9 you will need node 0.4 or later.
 
@@ -221,6 +221,10 @@ This was mainly created for [cluster](https://github.com/LearnBoost/cluster), bu
 </pre>
 
 ## author (of this node version)
+
+Bart Riemens (briemens - briemens@crafity.com)
+
+## original author (of this node version)
 
 Gareth Jones (csausdev - gareth.jones@sensis.com.au)
 

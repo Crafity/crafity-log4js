@@ -1,17 +1,14 @@
 {
   "name": "crafity-log4js",
-  "version": "0.0.2",
-  "description": "Port of Log4js to work with node and crafity-log4js.",
-  "author": {
-    "name": "Bart Riemens",
-    "email": "briemens@crafity.com"
-  },
+  "version": "0.1.0",
+  "description": "Port of Log4js to work with node and crafity-logging.",
+  "author": "Bart Riemens <briemens@crafity.com>",
   "homepage": "https://github.com/Crafity/crafity-log4js#readme",
   "keywords": [
     "Crafity",
     "logging",
     "log",
-    "log4j",
+    "log4js",
     "node"
   ],
   "maintainers": [
@@ -45,7 +42,7 @@
   },
   "licenses": [
     {
-      "type": "The MIT License",
+      "type": "Apache License",
       "url": "https://github.com/Crafity/crafity-log4js/blob/master/LICENSE"
     }
   ],
@@ -57,9 +54,9 @@
     "url": "git://github.com/Crafity/crafity-log4js.git"
   },
   "dependencies": {
-    "vows": "*",
-    "sandboxed-module": "*",
-    "underscore": "*"
+    "vows": "0.7.0",
+    "sandboxed-module": "0.2.1",
+    "underscore": "1.5.1"
   },
   "engines": {
     "node": "*"
@@ -71,12 +68,6 @@
     "name": "Crafity",
     "email": "npm@crafity.com"
   },
-  "_id": "crafity-log4js@0.0.1",
   "devDependencies": {},
-  "optionalDependencies": {},
-  "_engineSupported": true,
-  "_npmVersion": "1.1.23",
-  "_nodeVersion": "v0.6.18",
-  "_defaultsLoaded": true,
-  "_from": "crafity-log4js@*"
+  "optionalDependencies": {}
 }
