@@ -1,6 +1,6 @@
 {
   "name": "crafity-log4js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Port of Log4js to work with node and crafity-logging.",
   "author": "Bart Riemens <briemens@crafity.com>",
   "homepage": "https://github.com/Crafity/crafity-log4js#readme",
